@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config';
+---
+
+<BaseLayout title="Страница не найдена">
+  <section class="placeholder">
+    <h1 class="placeholder__title">404</h1>
+    <p class="placeholder__text">Страница не найдена или была удалена.</p>
+    <a class="placeholder__link" href={siteConfig.paths.home}>
+      Вернуться на главную
+    </a>
+  </section>
+</BaseLayout>

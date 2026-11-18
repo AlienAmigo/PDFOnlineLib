@@ -1,0 +1,58 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { pdfList, getPdfById } from '../../data/pdfs';
+
+export const getStaticPaths: GetStaticPaths = () =>
+  pdfList.map((pdf) => ({ params: { id: pdf.id } }));
+
+const { id } = Astro.params;
+const pdf = getPdfById(id!);
+
+if (!pdf) {
+  return Astro.redirect('/404');
+}
+---
+
+<BaseLayout title={pdf.title}>
+  <section class="viewer">
+    <div class="viewer__meta">
+      <h1 class="viewer__title">{pdf.title}</h1>
+      {pdf.description && <p class="viewer__description">{pdf.description}</p>}
+    </div>
+
+    <div
+      id="pdf-viewer"
+      class="viewer__container"
+      data-url={pdf.url}
+      data-filename={pdf.fileName}
+    >
+      <div class="viewer__toolbar">
+        <button class="button" type="button" data-action="prev">&larr; Назад</button>
+        <span class="viewer__pages" data-role="page-info">— / —</span>
+        <button class="button" type="button" data-action="next">Вперёд &rarr;</button>
+        <span class="viewer__spacer"></span>
+        <button class="button" type="button" data-action="zoom-out">&minus;</button>
+        <button class="button" type="button" data-action="zoom-in">+</button>
+        <a class="button button--primary" href={pdf.url} download={pdf.fileName}>
+          Скачать
+        </a>
+      </div>
+
+      <p class="viewer__status" data-role="status">Загрузка документа…</p>
+
+      <div class="viewer__canvas-wrap" data-role="canvas-wrap" hidden>
+        <canvas class="viewer__canvas" data-role="canvas"></canvas>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { initViewer } from '../../scripts/viewer';
+
+  const container = document.getElementById('pdf-viewer');
+  if (container instanceof HTMLElement) {
+    initViewer(container);
+  }
+</script>

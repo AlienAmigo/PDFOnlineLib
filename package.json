@@ -1,0 +1,20 @@
+{
+  "name": "pdf-viewer",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.6.1",
+    "pdfjs-dist": "^4.10.38",
+    "sass": "^1.86.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
