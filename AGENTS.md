@@ -21,6 +21,8 @@
 ## Структура
 
 ```
+README.md                   обзор проекта и быстрый старт
+doc/                        документация: adding-documents, development, deployment
 astro.config.mjs            конфиг Astro (output: 'static')
 tsconfig.json               extends astro/tsconfigs/strict
 public/
