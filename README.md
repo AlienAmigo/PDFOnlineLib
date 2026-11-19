@@ -31,11 +31,12 @@ npm run format    # Prettier: автоформатирование
 public/pdf/         PDF-файлы (отдаются как статика)
 src/
   config.ts         название сайта, копирайт, все пути
+  components/       Header, Footer, Toolbar (разметка + стили рядом с компонентом)
   data/pdfs.ts      каталог документов (id, название, описание, имя файла)
-  layouts/          общий шаблон страниц (шапка + футер)
+  layouts/          общий шаблон страниц (Header + slot + Footer)
   pages/            страницы: главная, 404, /view/[id]
   scripts/          клиентская логика просмотрщика (PDF.js)
-  styles/           стили SCSS
+  styles/           глобальные стили + vars/ (дизайн-токены — CSS-переменные)
 ```
 
 ## Документация

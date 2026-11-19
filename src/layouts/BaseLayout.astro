@@ -1,5 +1,7 @@
 ---
 import { siteConfig } from '../config';
+import Header from '../components/header/Header.astro';
+import Footer from '../components/footer/Footer.astro';
 import '../styles/main.scss';
 
 interface Props {
@@ -8,7 +10,6 @@ interface Props {
 
 const { title } = Astro.props;
 const pageTitle = title ? `${title} — ${siteConfig.title}` : siteConfig.title;
-const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -21,46 +22,13 @@ const year = new Date().getFullYear();
   </head>
   <body>
     <div class="page">
-      <header class="header">
-        <div class="header__inner container">
-          <a class="header__logo" href={siteConfig.paths.home}>
-            <svg
-              class="header__logo-icon"
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M14 2v6h6"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-            </svg>
-            <span class="header__logo-text">{siteConfig.title}</span>
-          </a>
-        </div>
-      </header>
+      <Header />
 
       <main class="page__content container">
         <slot />
       </main>
 
-      <footer class="footer">
-        <div class="footer__inner container">
-          <p class="footer__copyright">
-            &copy; {year} {siteConfig.copyright}. Все права защищены.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   </body>
 </html>

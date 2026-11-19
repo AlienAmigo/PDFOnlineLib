@@ -1,0 +1,289 @@
+---
+import './toolbar.scss';
+
+interface Props {
+  url: string;
+  fileName: string;
+}
+
+const { url, fileName } = Astro.props;
+---
+
+<div class="viewer__toolbar">
+  <div class="viewer__info" data-role="info">
+    <button
+      class="button button--round"
+      type="button"
+      data-action="info"
+      aria-label="Информация об издании"
+      aria-expanded="false"
+      aria-controls="viewer-info-panel"
+      title="Информация об издании"
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <circle
+          cx="8"
+          cy="8"
+          r="6.5"
+          stroke="currentColor"
+          stroke-width="1.5"
+        ></circle>
+        <path
+          d="M8 7.4v3.4"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        ></path>
+        <circle cx="8" cy="5" r="0.9" fill="currentColor"></circle>
+      </svg>
+    </button>
+    <div
+      class="viewer__info-panel"
+      id="viewer-info-panel"
+      data-role="info-panel"
+      hidden
+    ></div>
+  </div>
+  <button
+    class="button"
+    type="button"
+    data-action="prev"
+    aria-label="Предыдущая страница"
+    title="Предыдущая страница"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M13 8H3M8 3 3 8l5 5"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </button>
+  <div class="viewer__pages">
+    <input
+      class="viewer__page-input"
+      type="number"
+      data-role="page-input"
+      min="1"
+      inputmode="numeric"
+      aria-label="Номер страницы"
+      value="1"
+    />
+    <span data-role="page-total">/ —</span>
+  </div>
+  <button
+    class="button"
+    type="button"
+    data-action="next"
+    aria-label="Следующая страница"
+    title="Следующая страница"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M3 8h10M8 3l5 5-5 5"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </button>
+  <span class="viewer__spacer"></span>
+  <button
+    class="button"
+    type="button"
+    data-action="zoom-out"
+    aria-label="Уменьшить масштаб"
+    title="Уменьшить масштаб"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="7"
+        cy="7"
+        r="4.5"
+        stroke="currentColor"
+        stroke-width="1.5"
+      ></circle>
+      <path
+        d="M10.2 10.2 14.5 14.5M5 7h4"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+  </button>
+  <span class="viewer__scale" data-role="scale">
+    {' '}
+    —{' '}
+  </span>
+  <button
+    class="button"
+    type="button"
+    data-action="zoom-in"
+    aria-label="Увеличить масштаб"
+    title="Увеличить масштаб"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <circle
+        cx="7"
+        cy="7"
+        r="4.5"
+        stroke="currentColor"
+        stroke-width="1.5"
+      ></circle>
+      <path
+        d="M10.2 10.2 14.5 14.5M7 5v4M5 7h4"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+  </button>
+  <button
+    class="button"
+    type="button"
+    data-action="actual-size"
+    aria-label="Фактический размер (100%)"
+    title="Фактический размер (100%)"
+  >
+    1:1
+  </button>
+  <button
+    class="button"
+    type="button"
+    data-action="fit-width"
+    aria-label="По ширине страницы"
+    title="По ширине страницы"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M1 8h14M4 5 1 8l3 3M12 5l3 3-3 3"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </button>
+  <button
+    class="button"
+    type="button"
+    data-action="fit-height"
+    aria-label="По высоте страницы"
+    title="По высоте страницы"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M8 1v14M5 4l3-3 3 3M5 12l3 3 3-3"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </button>
+  <button
+    class="button"
+    type="button"
+    data-action="fullscreen"
+    aria-label="Во весь экран"
+    aria-pressed="false"
+    title="Во весь экран"
+  >
+    <svg
+      data-role="fullscreen-enter"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 1H1v5M10 1h5v5M6 15H1v-5M10 15h5v-5"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+    <svg
+      data-role="fullscreen-exit"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      style="display: none"
+    >
+      <path
+        d="M1 6h5V1M15 6h-5V1M1 10h5v5M15 10h-5v5"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </button>
+  <a class="button button--primary" href={url} download={fileName}>
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M8 2v8M5 7l3 3 3-3M2.5 13.5h11"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+    Скачать
+  </a>
+</div>

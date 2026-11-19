@@ -36,10 +36,14 @@ public/
 src/
   config.ts                 siteConfig: название, копирайт, все пути сайта
   env.d.ts                  ссылки на типы astro/client и vite/client
+  components/
+    header/                 Header.astro + header.scss (шапка с логотипом)
+    footer/                 Footer.astro + footer.scss (футер с копирайтом)
+    viewer/                 Toolbar.astro + toolbar.scss (тулбар просмотрщика, .button)
   data/
     pdfs.ts                 каталог документов: список, getPdfById, URL файлов
   layouts/
-    BaseLayout.astro        общий шаблон: шапка с логотипом, <slot/>, футер
+    BaseLayout.astro        общий шаблон: <Header/>, <slot/>, <Footer/>
   pages/
     index.astro             главная («В разработке»)
     404.astro               страница 404
@@ -48,7 +52,10 @@ src/
     viewer.ts               клиентская логика PDF.js (рендер в canvas, пагинация, зум,
                             fit по ширине/высоте, fullscreen, ввод страницы, клавиатура)
   styles/
-    main.scss               все стили (переменные, шапка, футер, viewer, кнопки)
+    vars/                   дизайн-токены — CSS custom properties (объявлены в :root):
+                            colors.scss (цвета), layout.scss (--container-width)
+    main.scss               глобальные стили: reset, page, container, visually-hidden,
+                            placeholder, каркас viewer (canvas, status, fullscreen)
 ```
 
 Слои: `config` (пути/настройки) → `data` (каталог документов) → `pages`/`layouts` (UI) →
@@ -82,9 +89,14 @@ src/
 ## Соглашения
 
 - Страницы — только через `src/layouts/BaseLayout.astro` (шапка и футер не дублируются).
-- Стили — SCSS в `src/styles/main.scss`, методология БЭМ (`block__element--modifier`),
-  дизайн-токены — SCSS-переменные в начале файла (`$color-*`, `$container-width`).
-  Стили в `.astro`-файлах не пишем.
+- Стили — SCSS, методология БЭМ (`block__element--modifier`). Глобальные стили — в
+  `src/styles/main.scss`; стили компонента — рядом с ним (`components/<name>/<name>.scss`,
+  подключаются импортом во frontmatter компонента). Стили в `<style>` внутри
+  `.astro`-файлов не пишем.
+- Дизайн-токены — CSS custom properties в `src/styles/vars/*.scss` (объявлены в `:root`,
+  одна группа токенов — один файл). В стилях используем `var(--color-*)` и т.п.
+- Разметка `components/viewer/Toolbar.astro` связана с `src/scripts/viewer.ts` контрактом
+  на `data-action`/`data-role`-атрибуты — менять только синхронно.
 - Клиентский JS — TypeScript-модули в `src/scripts/`, подключаются из `.astro` через
   `<script>` с импортом (Astro сам собирает их Vite'ом). Инициализация — через функцию
   `init*(container)`, данные передаются в DOM `data-*`-атрибутами, а не `define:vars`.

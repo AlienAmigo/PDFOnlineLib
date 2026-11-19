@@ -1,0 +1,14 @@
+---
+import { siteConfig } from '../../config';
+import './footer.scss';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer__inner container">
+    <p class="footer__copyright">
+      &copy; {year} {siteConfig.copyright}. Все права защищены.
+    </p>
+  </div>
+</footer>

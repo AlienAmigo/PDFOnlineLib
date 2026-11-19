@@ -45,15 +45,22 @@ config  →  data  →  pages / layouts  →  scripts (клиент)
 
 - `src/config.ts` — `siteConfig`: название, копирайт, **все пути сайта**. URL в разметке
   не хардкодятся, только через `siteConfig.paths`.
+- `src/components/` — переиспользуемые компоненты, каждый в своей папке вместе со
+  стилями: `header/Header.astro` + `header.scss`, `footer/Footer.astro` + `footer.scss`,
+  `viewer/Toolbar.astro` + `toolbar.scss`. Стили подключаются импортом во frontmatter
+  компонента.
 - `src/data/pdfs.ts` — каталог документов. Единственное место, которое меняется при
   добавлении PDF (см. [Добавление документа](adding-documents.md)).
-- `src/layouts/BaseLayout.astro` — шапка с логотипом и футер; все страницы строятся
-  только через него.
+- `src/layouts/BaseLayout.astro` — каркас страницы (`<Header/>`, `<slot/>`, `<Footer/>`);
+  все страницы строятся только через него.
 - `src/scripts/viewer.ts` — клиентская логика PDF.js: рендер текущей страницы в canvas,
   пагинация, зум. Подключается из `.astro` через `<script>` с импортом — Astro сам
   собирает его Vite'ом. Данные передаются в DOM через `data-*`-атрибуты.
-- `src/styles/main.scss` — все стили, БЭМ, дизайн-токены в SCSS-переменных в начале файла.
-  Стили в `.astro`-файлах не пишутся.
+- `src/styles/main.scss` — глобальные стили (reset, `page`, `container`,
+  `visually-hidden`, `placeholder`, каркас просмотрщика). Дизайн-токены — CSS custom
+  properties в `src/styles/vars/*.scss` (объявлены в `:root`, одна группа — один файл).
+  Разметка `Toolbar.astro` связана с `viewer.ts` контрактом на `data-action`/`data-role`
+  атрибуты — менять их нужно синхронно.
 
 ## Соглашения по коду
 
