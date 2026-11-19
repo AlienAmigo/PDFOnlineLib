@@ -22,6 +22,9 @@ export async function initViewer(container: HTMLElement): Promise<void> {
 
   if (!canvas || !canvasWrap || !status || !pageInfo) return;
 
+  const canvasEl: HTMLCanvasElement = canvas;
+  const pageInfoEl: HTMLElement = pageInfo;
+
   let doc: pdfjsLib.PDFDocumentProxy;
   try {
     doc = await pdfjsLib.getDocument(url).promise;
@@ -38,7 +41,7 @@ export async function initViewer(container: HTMLElement): Promise<void> {
   const totalPages = doc.numPages;
 
   function updateControls(): void {
-    pageInfo.textContent = `${pageNumber} / ${totalPages}`;
+    pageInfoEl.textContent = `${pageNumber} / ${totalPages}`;
     if (prevBtn) prevBtn.disabled = pageNumber <= 1;
     if (nextBtn) nextBtn.disabled = pageNumber >= totalPages;
     if (zoomOutBtn) zoomOutBtn.disabled = scale <= SCALE_MIN;
@@ -54,14 +57,14 @@ export async function initViewer(container: HTMLElement): Promise<void> {
 
     const page = await doc.getPage(pageNumber);
     const viewport = page.getViewport({ scale });
-    const context = canvas.getContext('2d');
+    const context = canvasEl.getContext('2d');
     if (!context) return;
 
     const outputScale = window.devicePixelRatio || 1;
-    canvas.width = Math.floor(viewport.width * outputScale);
-    canvas.height = Math.floor(viewport.height * outputScale);
-    canvas.style.width = `${Math.floor(viewport.width)}px`;
-    canvas.style.height = `${Math.floor(viewport.height)}px`;
+    canvasEl.width = Math.floor(viewport.width * outputScale);
+    canvasEl.height = Math.floor(viewport.height * outputScale);
+    canvasEl.style.width = `${Math.floor(viewport.width)}px`;
+    canvasEl.style.height = `${Math.floor(viewport.height)}px`;
 
     await page.render({
       canvasContext: context,

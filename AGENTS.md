@@ -1,7 +1,7 @@
 # AGENTS.md
 
-Проект — **pdf-viewer**, статический сайт для просмотра PDF-документов на **Astro 5**
-(TypeScript ~5.8, SCSS, PDF.js 4, Node.js >= 22). Бэкенда нет: сборка `astro build` выдаёт
+Проект — **pdf-viewer**, статический сайт для просмотра PDF-документов на **Astro 7**
+(TypeScript ~5.9, SCSS, PDF.js 4, Node.js >= 22.12). Бэкенда нет: сборка `astro build` выдаёт
 статику в `dist/`, которую можно отдавать любым веб-сервером или объектным хранилищем.
 Документация Astro: <https://docs.astro.build/> (актуальную версию см. в `package.json`).
 
@@ -22,7 +22,7 @@
 
 ```
 README.md                   обзор проекта и быстрый старт
-doc/                        документация: adding-documents, development, deployment
+docs/                       документация: adding-documents, development, deployment, roadmap
 astro.config.mjs            конфиг Astro (output: 'static')
 tsconfig.json               extends astro/tsconfigs/strict
 public/
