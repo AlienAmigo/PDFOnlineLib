@@ -36,7 +36,6 @@ body {
 }
 
 .page {
-  height: 100vh;
   height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -141,6 +140,11 @@ body {
     min-height: 0;
     display: flex;
     flex-direction: column;
+
+    &:fullscreen {
+      background: $color-bg;
+      padding: 16px;
+    }
   }
 
   &__toolbar {
@@ -156,12 +160,83 @@ body {
   }
 
   &__pages {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: $color-muted;
     font-variant-numeric: tabular-nums;
   }
 
+  &__page-input {
+    width: 5ch;
+    padding: 4px 6px;
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    background: $color-surface;
+    color: $color-text;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    appearance: textfield;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-primary;
+      outline-offset: 1px;
+    }
+  }
+
   &__spacer {
     flex: 1;
+  }
+
+  &__info {
+    position: relative;
+    display: flex;
+  }
+
+  &__info-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 10;
+    min-width: 260px;
+    max-width: 320px;
+    padding: 12px 14px;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  &__info-list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 12px;
+    margin: 0;
+    font-size: 13px;
+    overflow-wrap: break-word;
+
+    dt {
+      color: $color-muted;
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+
+  &__scale {
+    min-width: 5ch;
+    color: $color-muted;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
   }
 
   &__canvas-wrap {
@@ -169,6 +244,7 @@ body {
     min-height: 0;
     display: flex;
     overflow: auto;
+    scrollbar-gutter: stable;
     background: $color-surface;
     border: 1px solid $color-border;
     border-radius: 8px;
@@ -196,7 +272,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
+  padding: 8px;
   border: 1px solid $color-border;
   border-radius: 6px;
   background: $color-surface;
@@ -204,6 +280,15 @@ body {
   font-size: 14px;
   cursor: pointer;
   text-decoration: none;
+
+  svg {
+    display: block;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
 
   &:hover:not(:disabled) {
     border-color: $color-primary;
@@ -213,6 +298,10 @@ body {
   &:disabled {
     opacity: 0.45;
     cursor: default;
+  }
+
+  &--round {
+    border-radius: 50%;
   }
 
   &--primary {
