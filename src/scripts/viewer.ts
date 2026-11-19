@@ -11,14 +11,28 @@ export async function initViewer(container: HTMLElement): Promise<void> {
   const url = container.dataset.url;
   if (!url) return;
 
-  const canvas = container.querySelector<HTMLCanvasElement>('[data-role="canvas"]');
-  const canvasWrap = container.querySelector<HTMLElement>('[data-role="canvas-wrap"]');
+  const canvas = container.querySelector<HTMLCanvasElement>(
+    '[data-role="canvas"]',
+  );
+  const canvasWrap = container.querySelector<HTMLElement>(
+    '[data-role="canvas-wrap"]',
+  );
   const status = container.querySelector<HTMLElement>('[data-role="status"]');
-  const pageInfo = container.querySelector<HTMLElement>('[data-role="page-info"]');
-  const prevBtn = container.querySelector<HTMLButtonElement>('[data-action="prev"]');
-  const nextBtn = container.querySelector<HTMLButtonElement>('[data-action="next"]');
-  const zoomInBtn = container.querySelector<HTMLButtonElement>('[data-action="zoom-in"]');
-  const zoomOutBtn = container.querySelector<HTMLButtonElement>('[data-action="zoom-out"]');
+  const pageInfo = container.querySelector<HTMLElement>(
+    '[data-role="page-info"]',
+  );
+  const prevBtn = container.querySelector<HTMLButtonElement>(
+    '[data-action="prev"]',
+  );
+  const nextBtn = container.querySelector<HTMLButtonElement>(
+    '[data-action="next"]',
+  );
+  const zoomInBtn = container.querySelector<HTMLButtonElement>(
+    '[data-action="zoom-in"]',
+  );
+  const zoomOutBtn = container.querySelector<HTMLButtonElement>(
+    '[data-action="zoom-out"]',
+  );
 
   if (!canvas || !canvasWrap || !status || !pageInfo) return;
 
@@ -69,7 +83,8 @@ export async function initViewer(container: HTMLElement): Promise<void> {
     await page.render({
       canvasContext: context,
       viewport,
-      transform: outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : undefined,
+      transform:
+        outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : undefined,
     }).promise;
 
     rendering = false;

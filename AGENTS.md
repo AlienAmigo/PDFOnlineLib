@@ -7,16 +7,19 @@
 
 ## Команды
 
-| Команда           | Что делает                                             |
-| ----------------- | ------------------------------------------------------ |
-| `npm run dev`     | Dev-сервер Astro (http://localhost:4321)               |
-| `npm run build`   | Продакшен-сборка статики в `dist/`                     |
-| `npm run preview` | Локальная отдача собранного `dist/` для проверки       |
-| `npx tsc --noEmit`| Проверка типов                                         |
+| Команда                | Что делает                                       |
+| ---------------------- | ------------------------------------------------ |
+| `npm run dev`          | Dev-сервер Astro (http://localhost:4321)         |
+| `npm run build`        | Продакшен-сборка статики в `dist/`               |
+| `npm run preview`      | Локальная отдача собранного `dist/` для проверки |
+| `npm run lint`         | ESLint (flat config, `eslint.config.js`)         |
+| `npm run format`       | Prettier: автоформатирование всех файлов         |
+| `npm run format:check` | Prettier: проверка форматирования без записи     |
+| `npx tsc --noEmit`     | Проверка типов                                   |
 
-Перед завершением задачи обязателен `npm run build` без ошибок — это одновременно и проверка
-типов, и сборка. Если менялись страницы или скрипт просмотрщика, дополнительно проверьте
-результат в браузере через `npm run preview`.
+Перед завершением задачи обязательны без ошибок: `npm run build`, `npm run lint` и
+`npm run format:check`. Если менялись страницы или скрипт просмотрщика, дополнительно
+проверьте результат в браузере через `npm run preview`.
 
 ## Структура
 
@@ -25,6 +28,8 @@ README.md                   обзор проекта и быстрый стар
 docs/                       документация: adding-documents, development, deployment, roadmap
 astro.config.mjs            конфиг Astro (output: 'static')
 tsconfig.json               extends astro/tsconfigs/strict
+eslint.config.js            ESLint flat config (typescript-eslint + eslint-plugin-astro)
+.prettierrc                 Prettier (singleQuote, prettier-plugin-astro)
 public/
   favicon.svg               иконка сайта (тот же логотип, что в шапке)
   pdf/                      PDF-файлы, отдаются как статика по /pdf/<имя>
@@ -53,11 +58,11 @@ src/
 
 Единственный источник правды для URL — `siteConfig.paths` в `src/config.ts`:
 
-| Путь             | Куда ведёт                        |
-| ---------------- | --------------------------------- |
-| `paths.home`     | `/`                               |
-| `paths.view(id)` | `/view/<id>`                      |
-| `paths.pdf(f)`   | `/pdf/<имя файла>` (public/pdf/)  |
+| Путь             | Куда ведёт                       |
+| ---------------- | -------------------------------- |
+| `paths.home`     | `/`                              |
+| `paths.view(id)` | `/view/<id>`                     |
+| `paths.pdf(f)`   | `/pdf/<имя файла>` (public/pdf/) |
 
 - В разметке не хардкодить URL — только через `siteConfig.paths`.
 - Импорты внутри `src` — относительные (`../config`, `../../layouts/BaseLayout.astro`);

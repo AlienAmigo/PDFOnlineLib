@@ -7,16 +7,29 @@
 
 ## Команды
 
-| Команда            | Что делает                                             |
-| ------------------ | ------------------------------------------------------ |
-| `npm run dev`      | Dev-сервер с горячей перезагрузкой, http://localhost:4321 |
-| `npm run build`    | Проверка типов + продакшен-сборка статики в `dist/`    |
-| `npm run preview`  | Локальная отдача собранного `dist/` (проверка результата) |
-| `npx tsc --noEmit` | Только проверка типов                                  |
+| Команда                | Что делает                                                |
+| ---------------------- | --------------------------------------------------------- |
+| `npm run dev`          | Dev-сервер с горячей перезагрузкой, http://localhost:4321 |
+| `npm run build`        | Продакшен-сборка статики в `dist/`                        |
+| `npm run preview`      | Локальная отдача собранного `dist/` (проверка результата) |
+| `npm run lint`         | ESLint (`eslint.config.js`)                               |
+| `npm run format`       | Prettier: автоформатирование всех файлов                  |
+| `npm run format:check` | Prettier: проверка форматирования без записи              |
+| `npx tsc --noEmit`     | Проверка типов                                            |
 
-Перед коммитом обязателен `npm run build` без ошибок. Если менялись страницы или
-просмотрщик — дополнительно откройте результат через `npm run preview` и проверьте
-в браузере.
+Перед коммитом обязательны без ошибок: `npm run build`, `npm run lint` и
+`npm run format:check`. Если менялись страницы или просмотрщик — дополнительно откройте
+результат через `npm run preview` и проверьте в браузере.
+
+## Качество кода
+
+- **ESLint** (flat config в `eslint.config.js`): `typescript-eslint` (recommended) +
+  `eslint-plugin-astro` (recommended) + `eslint-config-prettier` (отключает правила,
+  конфликтующие с Prettier).
+- **Prettier** (`.prettierrc`): `singleQuote`, плагин `prettier-plugin-astro` для
+  `.astro`-файлов. Исключения — в `.prettierignore` (`dist`, `.astro`, `node_modules`,
+  `package-lock.json`).
+- Форматирование не привязывайте к редактору: перед коммитом достаточно `npm run format`.
 
 ## Архитектура
 

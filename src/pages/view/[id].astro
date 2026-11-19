@@ -28,18 +28,34 @@ if (!pdf) {
       data-filename={pdf.fileName}
     >
       <div class="viewer__toolbar">
-        <button class="button" type="button" data-action="prev">&larr; Назад</button>
-        <span class="viewer__pages" data-role="page-info">— / —</span>
-        <button class="button" type="button" data-action="next">Вперёд &rarr;</button>
+        <button class="button" type="button" data-action="prev">
+          &larr; Назад
+        </button>
+        <span class="viewer__pages" data-role="page-info">
+          — / —
+        </span>
+        <button class="button" type="button" data-action="next">
+          Вперёд &rarr;
+        </button>
         <span class="viewer__spacer"></span>
-        <button class="button" type="button" data-action="zoom-out">&minus;</button>
-        <button class="button" type="button" data-action="zoom-in">+</button>
-        <a class="button button--primary" href={pdf.url} download={pdf.fileName}>
+        <button class="button" type="button" data-action="zoom-out">
+          &minus;
+        </button>
+        <button class="button" type="button" data-action="zoom-in">
+          +
+        </button>
+        <a
+          class="button button--primary"
+          href={pdf.url}
+          download={pdf.fileName}
+        >
           Скачать
         </a>
       </div>
 
-      <p class="viewer__status" data-role="status">Загрузка документа…</p>
+      <p class="viewer__status" data-role="status">
+        Загрузка документа…
+      </p>
 
       <div class="viewer__canvas-wrap" data-role="canvas-wrap" hidden>
         <canvas class="viewer__canvas" data-role="canvas"></canvas>

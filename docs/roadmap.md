@@ -52,6 +52,18 @@ Node.js (>= 22.12) зафиксировано в документации.
 
 ## Приоритет 2 — ESLint + Prettier
 
+**Статус: выполнено (ноябрь 2026).** Установлены ESLint 10 (flat config
+`eslint.config.js`: `typescript-eslint` recommended + `eslint-plugin-astro` recommended +
+`eslint-config-prettier`) и Prettier 3 (`.prettierrc`: `singleQuote`,
+`prettier-plugin-astro`; исключения в `.prettierignore`). Добавлены скрипты `lint`,
+`format`, `format:check`; обязательный прогон перед коммитом зафиксирован в
+`AGENTS.md` и `docs/development.md`. Первичное форматирование всего кодека выполнено,
+`lint` / `format:check` / `tsc --noEmit` / `build` — без ошибок, рендеринг страниц
+после переформатирования проверен в браузере.
+
+<details>
+<summary>Исходное описание задачи (архив)</summary>
+
 Выполнять после миграции Astro (конфиги зависят от версии).
 
 - ESLint (flat config) + `eslint-plugin-astro` + `typescript-eslint`.
@@ -60,6 +72,8 @@ Node.js (>= 22.12) зафиксировано в документации.
   коммитом.
 - Правила — под существующие соглашения (строгий TS, БЭМ, именование файлов), без
   послаблений «на будущее».
+
+</details>
 
 ## Приоритет 3 — Замечания по просмотрщику
 

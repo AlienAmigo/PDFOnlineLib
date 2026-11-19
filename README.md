@@ -21,6 +21,8 @@ npm install       # установка зависимостей
 npm run dev       # dev-сервер: http://localhost:4321
 npm run build     # продакшен-сборка в dist/
 npm run preview   # локальная проверка собранного сайта
+npm run lint      # ESLint
+npm run format    # Prettier: автоформатирование
 ```
 
 ## Структура проекта
