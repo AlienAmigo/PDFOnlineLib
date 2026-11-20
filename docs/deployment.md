@@ -10,7 +10,29 @@
 Нагрузка небольшая: самые тяжёлые файлы — сами PDF и бандл PDF.js (~350 КБ + воркер ~1,4 МБ,
 кэшируются браузером).
 
-## Вариант 1: Nginx на VPS
+## Вариант 1: GitHub Pages (рекомендуется для MVP)
+
+Репозиторий: `AlienAmigo/PDFOnlineLib`, сайт будет доступен по адресу
+`https://alienamigo.github.io/PDFOnlineLib/`.
+
+```bash
+npm run deploy-gh
+```
+
+Что делает скрипт:
+
+1. `DEPLOY_TARGET=gh-pages astro build` — собирает `dist/` с `base: '/PDFOnlineLib/'`.
+2. `gh-pages -d dist --nojekyll` — публикует `dist/` в ветку `gh-pages` и добавляет
+   файл `.nojekyll` (иначе GitHub Pages проигнорирует папку `_astro`, и JS-бандл
+   вернёт 404).
+
+После публикации:
+
+- **Settings → Pages → Source: Deploy from a branch → Branch: gh-pages**.
+- Подождите 30–60 секунд, пока GitHub Pages пересоберётся.
+- Проверяйте со сбросом кэша (`Ctrl+F5` / `Cmd+Shift+R`).
+
+## Вариант 2: Nginx на VPS
 
 1. Соберите сайт локально и скопируйте `dist/` на сервер:
 
@@ -58,7 +80,7 @@
 
 4. HTTPS — через Certbot (`sudo certbot --nginx -d example.ru`).
 
-## Вариант 2: Объектное хранилище (S3)
+## Вариант 3: Объектное хранилище (S3)
 
 Загрузите содержимое `dist/` в бакет с включённым статическим хостингом, укажите
 `index.html` как индексный документ и `404.html` как страницу ошибки. Подойдёт для

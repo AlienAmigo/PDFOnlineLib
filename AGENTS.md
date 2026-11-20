@@ -7,15 +7,19 @@
 
 ## Команды
 
-| Команда                | Что делает                                       |
-| ---------------------- | ------------------------------------------------ |
-| `npm run dev`          | Dev-сервер Astro (http://localhost:4321)         |
-| `npm run build`        | Продакшен-сборка статики в `dist/`               |
-| `npm run preview`      | Локальная отдача собранного `dist/` для проверки |
-| `npm run lint`         | ESLint (flat config, `eslint.config.js`)         |
-| `npm run format`       | Prettier: автоформатирование всех файлов         |
-| `npm run format:check` | Prettier: проверка форматирования без записи     |
-| `npx tsc --noEmit`     | Проверка типов                                   |
+| Команда                | Что делает                                                          |
+| ---------------------- | ------------------------------------------------------------------- |
+| `npm run dev`          | Dev-сервер Astro (http://localhost:4321/)                           |
+| `npm run build`        | Сборка под корень (`/`) в `dist/`                                   |
+| `npm run build:gh`     | Сборка под GitHub Pages (`/PDFOnlineLib/`)                          |
+| `npm run build:prod`   | Сборка под корень продакшена (`/`)                                  |
+| `npm run preview`      | Локальная отдача последней сборки (`dist/`)                         |
+| `npm run preview:gh`   | Локальная отдача GH-сборки по `http://localhost:4321/PDFOnlineLib/` |
+| `npm run deploy-gh`    | Сборка под GH Pages и публикация в ветку `gh-pages`                 |
+| `npm run lint`         | ESLint (flat config, `eslint.config.js`)                            |
+| `npm run format`       | Prettier: автоформатирование всех файлов                            |
+| `npm run format:check` | Prettier: проверка форматирования без записи                        |
+| `npx tsc --noEmit`     | Проверка типов                                                      |
 
 Перед завершением задачи обязательны без ошибок: `npm run build`, `npm run lint` и
 `npm run format:check`. Если менялись страницы или скрипт просмотрщика, дополнительно
@@ -73,10 +77,12 @@ src/
 | `paths.pdf(f)`   | `/pdf/<имя файла>` (public/pdf/) |
 
 - В разметке не хардкодить URL — только через `siteConfig.paths`.
-- Сайт деплоится на GitHub Pages под подпутём (`base: '/PDFOnlineLib'` в
-  `astro.config.mjs`). `siteConfig.paths` уже включают `import.meta.env.BASE_URL`;
-  для прочих статических ссылок в разметке (favicon и т.п.) — тоже
-  `${import.meta.env.BASE_URL}<путь>`, а не `/`-от-корня.
+- Сайт деплоится на GitHub Pages под подпутём `/PDFOnlineLib/`. `base` выбирается
+  автоматически в `astro.config.mjs` по переменной `DEPLOY_TARGET=gh-pages`;
+  по умолчанию (dev, `npm run build`, `npm run build:prod`) используется корень `/`.
+  `siteConfig.paths` уже включают `import.meta.env.BASE_URL`; для прочих статических
+  ссылок в разметке (favicon и т.п.) — тоже `${import.meta.env.BASE_URL}<путь>`,
+  а не `/`-от-корня.
 - Импорты внутри `src` — относительные (`../config`, `../../layouts/BaseLayout.astro`);
   алиасы не настроены и не нужны.
 - URL файла документа собирается в `src/data/pdfs.ts` (`pdfList[].url`), страницы работают

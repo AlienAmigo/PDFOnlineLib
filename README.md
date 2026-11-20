@@ -2,7 +2,7 @@
 
 Статический сайт для просмотра PDF-документов в браузере. Стек: **Astro 7** (статическая
 генерация), **TypeScript**, **SCSS**, **PDF.js**. Бэкенда нет — сайт собирается в статику
-и работает на любом веб-сервере или объектном хранилище.
+и работает на любом веб-сервере, объектном хранилище или GitHub Pages.
 
 ## Возможности
 
@@ -14,13 +14,16 @@
 
 ## Быстрый старт
 
-Требуется **Node.js >= 22.12**.
+Требуется **Node.js >= 22.23.4** (актуальное требование Astro 7).
 
 ```bash
 npm install       # установка зависимостей
-npm run dev       # dev-сервер: http://localhost:4321
-npm run build     # продакшен-сборка в dist/
+npm run dev       # dev-сервер: http://localhost:4321/
+npm run build     # сборка под корень (/)
+npm run build:gh  # сборка под GitHub Pages (/PDFOnlineLib/)
 npm run preview   # локальная проверка собранного сайта
+npm run preview:gh  # проверка GH-сборки по /PDFOnlineLib/
+npm run deploy-gh # сборка под GH Pages и публикация в ветку gh-pages
 npm run lint      # ESLint
 npm run format    # Prettier: автоформатирование
 ```
@@ -43,6 +46,6 @@ src/
 
 - [Добавление PDF-документа](docs/adding-documents.md)
 - [Разработка](docs/development.md) — команды, соглашения по коду
-- [Деплой](docs/deployment.md) — публикация на статическом хостинге
-- [План развития](docs/roadmap.md) — приоритетные задачи (миграция Astro, линтеры, просмотрщик)
+- [Деплой](docs/deployment.md) — публикация на GitHub Pages, Nginx, S3
+- [План развития](docs/roadmap.md) — приоритетные задачи
 - [AGENTS.md](AGENTS.md) — правила для ИИ-агентов, работающих с репозиторием

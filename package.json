@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:gh": "DEPLOY_TARGET=gh-pages astro build",
+    "build:prod": "DEPLOY_TARGET=prod astro build",
     "preview": "astro preview",
+    "preview:gh": "DEPLOY_TARGET=gh-pages astro preview",
     "astro": "astro",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "deploy-gh": "astro build && gh-pages -d dist"
+    "deploy-gh": "DEPLOY_TARGET=gh-pages astro build && gh-pages -d dist --nojekyll"
   },
   "dependencies": {
     "astro": "^7.4.13",
@@ -19,6 +22,7 @@
     "sass": "^1.86.3"
   },
   "devDependencies": {
+    "@types/node": "^26.6.6",
     "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^1.7.0",

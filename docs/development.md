@@ -2,20 +2,24 @@
 
 ## Окружение
 
-- **Node.js >= 22.12** и npm.
+- **Node.js >= 22.23.4** и npm (актуальное требование Astro 7).
 - Установка зависимостей: `npm install`.
 
 ## Команды
 
-| Команда                | Что делает                                                |
-| ---------------------- | --------------------------------------------------------- |
-| `npm run dev`          | Dev-сервер с горячей перезагрузкой, http://localhost:4321 |
-| `npm run build`        | Продакшен-сборка статики в `dist/`                        |
-| `npm run preview`      | Локальная отдача собранного `dist/` (проверка результата) |
-| `npm run lint`         | ESLint (`eslint.config.js`)                               |
-| `npm run format`       | Prettier: автоформатирование всех файлов                  |
-| `npm run format:check` | Prettier: проверка форматирования без записи              |
-| `npx tsc --noEmit`     | Проверка типов                                            |
+| Команда                | Что делает                                                   |
+| ---------------------- | ------------------------------------------------------------ |
+| `npm run dev`          | Dev-сервер с горячей перезагрузкой, http://localhost:4321    |
+| `npm run build`        | Сборка под корень (`/`) в `dist/`                            |
+| `npm run build:gh`     | Сборка под GitHub Pages (`/PDFOnlineLib/`)                   |
+| `npm run build:prod`   | Сборка под корень продакшена (`/`)                           |
+| `npm run preview`      | Локальная отдача последней сборки (`dist/`)                  |
+| `npm run preview:gh`   | Локальная отдача GH-сборки по `localhost:4321/PDFOnlineLib/` |
+| `npm run deploy-gh`    | Сборка под GH Pages и публикация в ветку `gh-pages`          |
+| `npm run lint`         | ESLint (`eslint.config.js`)                                  |
+| `npm run format`       | Prettier: автоформатирование всех файлов                     |
+| `npm run format:check` | Prettier: проверка форматирования без записи                 |
+| `npx tsc --noEmit`     | Проверка типов                                               |
 
 Перед коммитом обязательны без ошибок: `npm run build`, `npm run lint` и
 `npm run format:check`. Если менялись страницы или просмотрщик — дополнительно откройте
@@ -33,9 +37,14 @@
 
 ## Архитектура
 
-Сайт полностью статический (`output: 'static'` в `astro.config.mjs`): на этапе сборки
-Astro генерирует по одной HTML-странице на каждый документ из каталога
-(`src/pages/view/[id].astro` + `getStaticPaths`). В рантайме серверного кода нет.
+Сайт полностью статический (`output: 'static'` в `astro.config.mjs`). `base` выбирается
+автоматически по переменной окружения `DEPLOY_TARGET`: по умолчанию `/`, для
+`DEPLOY_TARGET=gh-pages` — `/PDFOnlineLib/`. На этапе сборки Astro генерирует по одной
+HTML-странице на каждый документ из каталога (`src/pages/view/[id].astro` + `getStaticPaths`).
+В рантайме серверного кода нет.
+
+Все внутренние пути собираются через `siteConfig.paths`, который использует
+`import.meta.env.BASE_URL`, поэтому переключение `base` не требует правок в страницах.
 
 Слои и направление импортов:
 
