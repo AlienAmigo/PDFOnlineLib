@@ -10,6 +10,23 @@ interface Props {
 
 const { title } = Astro.props;
 const pageTitle = title ? `${title} — ${siteConfig.title}` : siteConfig.title;
+
+const metrikaId = siteConfig.yandexMetrikaId;
+const metrikaInit =
+  metrikaId > 0
+    ? `(function (m, e, t, r, i, k, a) {
+  m[i] = m[i] || function () {
+    (m[i].a = m[i].a || []).push(arguments);
+  };
+  m[i].l = 1 * new Date();
+  k = e.createElement(t);
+  a = e.getElementsByTagName(t)[0];
+  k.async = 1;
+  k.src = r;
+  a.parentNode.insertBefore(k, a);
+})(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
+ym(${metrikaId}, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true });`
+    : null;
 ---
 
 <!doctype html>
@@ -23,6 +40,18 @@ const pageTitle = title ? `${title} — ${siteConfig.title}` : siteConfig.title;
       href={siteConfig.paths.asset('favicon.svg')}
     />
     <title>{pageTitle}</title>
+    {metrikaInit && <script is:inline set:html={metrikaInit} />}
+    {metrikaId > 0 && (
+      <noscript>
+        <div>
+          <img
+            src={`https://mc.yandex.ru/watch/${metrikaId}`}
+            style="position:absolute; left:-9999px;"
+            alt=""
+          />
+        </div>
+      </noscript>
+    )}
   </head>
   <body>
     <div class="page">

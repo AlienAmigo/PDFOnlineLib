@@ -268,7 +268,12 @@ const { url, fileName } = Astro.props;
       ></path>
     </svg>
   </button>
-  <a class="button button--primary" href={url} download={fileName}>
+  <a
+    class="button button--primary"
+    href={url}
+    download={fileName}
+    data-action="download"
+  >
     <svg
       width="16"
       height="16"

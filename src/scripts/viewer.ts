@@ -1,5 +1,6 @@
 import * as pdfjsLib from 'pdfjs-dist';
 import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
+import { reachGoal } from './metrics';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl;
 
@@ -37,6 +38,9 @@ export async function initViewer(container: HTMLElement): Promise<void> {
   );
   const actualSizeBtn = container.querySelector<HTMLButtonElement>(
     '[data-action="actual-size"]',
+  );
+  const downloadLink = container.querySelector<HTMLAnchorElement>(
+    '[data-action="download"]',
   );
   const prevBtn = container.querySelector<HTMLButtonElement>(
     '[data-action="prev"]',
@@ -97,11 +101,13 @@ export async function initViewer(container: HTMLElement): Promise<void> {
 
   const description = container.dataset.description ?? '';
   const fileName = container.dataset.filename ?? '';
+  const documentId = container.dataset.document ?? fileName;
 
   let pageNumber = 1;
   let scale = 1.25;
   let rendering = false;
   let pendingRender = false;
+  let viewCounted = false;
 
   const totalPages = doc.numPages;
   pageInputEl.max = String(totalPages);
@@ -150,6 +156,10 @@ export async function initViewer(container: HTMLElement): Promise<void> {
 
       statusEl.hidden = true;
       canvasWrapEl.hidden = false;
+      if (!viewCounted) {
+        viewCounted = true;
+        reachGoal('pdf_view', { document_id: documentId });
+      }
     } catch {
       statusEl.textContent = 'Не удалось отобразить страницу.';
       statusEl.hidden = false;
@@ -291,6 +301,9 @@ export async function initViewer(container: HTMLElement): Promise<void> {
   fitWidthBtn?.addEventListener('click', () => void fitTo('width'));
   fitHeightBtn?.addEventListener('click', () => void fitTo('height'));
   fullscreenBtn?.addEventListener('click', () => void toggleFullscreen());
+  downloadLink?.addEventListener('click', () =>
+    reachGoal('pdf_download', { document_id: documentId }),
+  );
 
   pageInputEl.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
