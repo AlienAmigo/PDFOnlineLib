@@ -73,6 +73,10 @@ src/
 | `paths.pdf(f)`   | `/pdf/<имя файла>` (public/pdf/) |
 
 - В разметке не хардкодить URL — только через `siteConfig.paths`.
+- Сайт деплоится на GitHub Pages под подпутём (`base: '/PDFOnlineLib'` в
+  `astro.config.mjs`). `siteConfig.paths` уже включают `import.meta.env.BASE_URL`;
+  для прочих статических ссылок в разметке (favicon и т.п.) — тоже
+  `${import.meta.env.BASE_URL}<путь>`, а не `/`-от-корня.
 - Импорты внутри `src` — относительные (`../config`, `../../layouts/BaseLayout.astro`);
   алиасы не настроены и не нужны.
 - URL файла документа собирается в `src/data/pdfs.ts` (`pdfList[].url`), страницы работают

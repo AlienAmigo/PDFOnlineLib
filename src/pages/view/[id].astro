@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Toolbar from '../../components/viewer/Toolbar.astro';
 import { pdfList, getPdfById } from '../../data/pdfs';
+import { siteConfig } from '../../config';
 
 export const getStaticPaths: GetStaticPaths = () =>
   pdfList.map((pdf) => ({ params: { id: pdf.id } }));
@@ -11,7 +12,7 @@ const { id } = Astro.params;
 const pdf = getPdfById(id!);
 
 if (!pdf) {
-  return Astro.redirect('/404');
+  return Astro.redirect(siteConfig.paths.notFound);
 }
 ---
 
