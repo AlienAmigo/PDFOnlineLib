@@ -167,6 +167,8 @@ export async function initViewer(container: HTMLElement): Promise<void> {
     const next = Math.min(Math.max(page, 1), totalPages);
     if (next === pageNumber) return;
     pageNumber = next;
+    canvasWrapEl.scrollTop = 0;
+    canvasWrapEl.scrollLeft = 0;
     updateControls();
     void render();
   }
