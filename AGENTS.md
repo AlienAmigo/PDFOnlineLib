@@ -45,7 +45,8 @@ src/
   config.ts                 siteConfig: название, копирайт, все пути сайта
   env.d.ts                  ссылки на типы astro/client и vite/client
   components/
-    header/                 Header.astro + header.scss (шапка с логотипом)
+    header/                 Header.astro + header.scss (шапка с логотипом и
+                            переключателем темы)
     footer/                 Footer.astro + footer.scss (футер с копирайтом)
     modal/                  Modal.astro + modal.scss (модальное окно: контент через slot)
     viewer/                 Toolbar.astro + toolbar.scss (тулбар просмотрщика, .button)
@@ -60,8 +61,10 @@ src/
   scripts/
     viewer.ts               клиентская логика PDF.js (рендер в canvas, пагинация, зум,
                             fit по ширине/высоте, fullscreen, ввод страницы, клавиатура)
+    theme.ts                переключатель темы: localStorage + prefers-color-scheme
   styles/
-    vars/                   дизайн-токены — CSS custom properties (объявлены в :root):
+    vars/                   дизайн-токены — CSS custom properties (объявлены в :root,
+                            тёмная тема — переопределения в [data-theme='dark']):
                             colors.scss (цвета), layout.scss (--container-width)
     main.scss               глобальные стили: reset, page, container, visually-hidden,
                             placeholder, каркас viewer (canvas, status, fullscreen)
@@ -148,6 +151,13 @@ src/
 - Яндекс Метрика: сниппет в `BaseLayout.astro`, цели `pdf_view`/`pdf_download` с
   параметром `document_id` (`src/scripts/metrics.ts`). Включается заданием
   `siteConfig.yandexMetrikaId` в `src/config.ts`; 0 — счётчик не подключён.
+- Переключатель темы (светлая/тёмная): switch `header__theme-toggle` в шапке
+  (`role="switch"` + `aria-checked`), выбор в `localStorage`
+  (ключ `theme`), fallback на `prefers-color-scheme`; `data-theme` на `<html>`
+  выставляет инлайн-скрипт в `<head>` `BaseLayout.astro` до первой отрисовки.
+  Тёмная палитра — переопределения токенов в `[data-theme='dark']`
+  (`src/styles/vars/colors.scss`); `--color-primary` общий для обеих тем,
+  `--color-accent` — текстовые акценты (в тёмной теме светлее primary).
 - Счётчики просмотров/скачиваний из исходного ТЗ реализованы через Метрику; админка
   по-прежнему потребует отдельного бэкенда.
 - Счётчики просмотров/скачиваний и админка из исходного ТЗ в этот вариант не входят и

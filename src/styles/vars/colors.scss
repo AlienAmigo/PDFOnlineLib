@@ -4,5 +4,19 @@
   --color-text: #1f2329;
   --color-muted: #6b7280;
   --color-primary: #004b87;
+  --color-accent: var(--color-primary);
   --color-border: #e3e6ea;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --color-bg: #16191d;
+  --color-surface: #1f242b;
+  --color-text: #e6e8eb;
+  --color-muted: #98a1ad;
+  // --color-primary не переопределяется: одинаковый в обеих темах.
+  // --color-accent — для текста/обводки поверх тёмного фона, где primary нечитаем.
+  --color-accent: #66aaff;
+  --color-border: #343b45;
+  color-scheme: dark;
 }

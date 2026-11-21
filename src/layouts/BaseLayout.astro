@@ -34,6 +34,24 @@ ym(${metrikaId}, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      // Выставляем тему до первой отрисовки, чтобы не было вспышки светлой темы.
+      // Осознанное исключение из конвенции: модульные скрипты выполняются поздно.
+      (function () {
+        let theme = null;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch {
+          theme = null;
+        }
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <link
       rel="icon"
       type="image/png"
@@ -79,3 +97,12 @@ ym(${metrikaId}, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce
     </div>
   </body>
 </html>
+
+<script>
+  import { initTheme } from '../scripts/theme';
+
+  const header = document.querySelector<HTMLElement>('.header');
+  if (header) {
+    initTheme(header);
+  }
+</script>
