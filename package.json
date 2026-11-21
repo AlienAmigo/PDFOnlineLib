@@ -12,6 +12,7 @@
     "preview:gh": "DEPLOY_TARGET=gh-pages astro preview",
     "astro": "astro",
     "lint": "eslint .",
+    "pdfs": "node tools/list-pdfs.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "deploy-gh": "DEPLOY_TARGET=gh-pages astro build && gh-pages -d dist --nojekyll"

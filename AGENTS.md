@@ -17,6 +17,7 @@
 | `npm run preview:gh`   | Локальная отдача GH-сборки по `http://localhost:4321/PDFOnlineLib/` |
 | `npm run deploy-gh`    | Сборка под GH Pages и публикация в ветку `gh-pages`                 |
 | `npm run lint`         | ESLint (flat config, `eslint.config.js`)                            |
+| `npm run pdfs`         | Список PDF-файлов и их id; готовые записи для новых файлов          |
 | `npm run format`       | Prettier: автоформатирование всех файлов                            |
 | `npm run format:check` | Prettier: проверка форматирования без записи                        |
 | `npx tsc --noEmit`     | Проверка типов                                                      |
@@ -30,6 +31,8 @@
 ```
 README.md                   обзор проекта и быстрый старт
 docs/                       документация: adding-documents, development, deployment, roadmap
+tools/
+  list-pdfs.js            список PDF-файлов и их id; генерация записей для каталога
 astro.config.mjs            конфиг Astro (output: 'static')
 tsconfig.json               extends astro/tsconfigs/strict
 eslint.config.js            ESLint flat config (typescript-eslint + eslint-plugin-astro)
@@ -90,10 +93,17 @@ src/
 
 ## Добавление документа
 
-1. Положить файл в `public/pdf/`.
-2. Добавить запись в массив `entries` в `src/data/pdfs.ts` (`id`, `title`, `description`,
-   `fileName`). `id` — это slug страницы `/view/<id>`, латиница/цифры/дефис.
-3. `npm run build` — страница просмотра генерируется автоматически через `getStaticPaths`.
+1. Положить файл в `public/pdf/` — имя файла оставить оригинальным (оно же — имя при
+   скачивании).
+2. Запустить `npm run pdfs`: скрипт покажет все файлы с их `id`, а для файлов без записи
+   выдаст готовый блок для вставки в `src/data/pdfs.ts`.
+3. Вставить блок в массив `entries` и вручную уточнить `title`/`description`.
+   - `id` — случайный opaque-slug (10 символов), генерирует скрипт; **не** привязывать к
+     номеру работы — по id не должно быть возможно перебрать чужие документы.
+   - `index` — индекс работы `YY-NNNN` (скрипт подставляет из начала имени файла);
+     служебное поле для будущей админки/поиска, в UI не выводится.
+   - `fileName` — точное имя файла в `public/pdf/`.
+4. `npm run build` — страница просмотра генерируется автоматически через `getStaticPaths`.
    Документ без записи в каталоге недоступен, неизвестный `id` отдаёт 404.
 
 ## Соглашения
@@ -127,7 +137,8 @@ src/
 ## Текущее состояние
 
 - Главная — заглушка «В разработке»; каталог документов на ней ещё не выводится.
-- В каталоге один документ `sample` (`public/pdf/sample.pdf`).
+- В каталоге два документа (`sample`, `pokc80qren` — Lancet); `id` — случайные
+  opaque-slug, не связанные с индексом работы (`index` — отдельное служебное поле).
 - Лэйаут фиксированный: шапка и футер всегда у краёв viewport, прокручивается только
   `.page__content`; на странице просмотра прокрутка — внутри `.viewer__canvas-wrap`.
 - Яндекс Метрика: сниппет в `BaseLayout.astro`, цели `pdf_view`/`pdf_download` с
