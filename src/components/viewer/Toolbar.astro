@@ -12,7 +12,7 @@ const { url, fileName } = Astro.props;
 <div class="viewer__toolbar">
   <div class="viewer__info" data-role="info">
     <button
-      class="button button--round"
+      class="button"
       type="button"
       data-action="info"
       aria-label="Информация об издании"
@@ -21,6 +21,7 @@ const { url, fileName } = Astro.props;
       title="Информация об издании"
     >
       <svg
+        class="viewer__info-icon"
         width="16"
         height="16"
         viewBox="0 0 16 16"
@@ -32,15 +33,15 @@ const { url, fileName } = Astro.props;
           cy="8"
           r="6.5"
           stroke="currentColor"
-          stroke-width="1.5"
+          stroke-width="2"
         ></circle>
         <path
           d="M8 7.4v3.4"
           stroke="currentColor"
-          stroke-width="1.5"
+          stroke-width="2"
           stroke-linecap="round"
         ></path>
-        <circle cx="8" cy="5" r="0.9" fill="currentColor"></circle>
+        <circle cx="8" cy="5" r="1" fill="currentColor"></circle>
       </svg>
     </button>
     <div

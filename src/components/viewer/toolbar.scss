@@ -60,6 +60,10 @@
     display: flex;
   }
 
+  &__info-icon {
+    color: var(--color-primary);
+  }
+
   &__info-panel {
     position: absolute;
     top: calc(100% + 8px);
@@ -122,10 +126,6 @@
   &:disabled {
     opacity: 0.45;
     cursor: default;
-  }
-
-  &--round {
-    border-radius: 50%;
   }
 
   &--primary {
