@@ -47,6 +47,7 @@ src/
   components/
     header/                 Header.astro + header.scss (шапка с логотипом)
     footer/                 Footer.astro + footer.scss (футер с копирайтом)
+    modal/                  Modal.astro + modal.scss (модальное окно: контент через slot)
     viewer/                 Toolbar.astro + toolbar.scss (тулбар просмотрщика, .button)
   data/
     pdfs.ts                 каталог документов: список, getPdfById, URL файлов
@@ -117,8 +118,9 @@ src/
   `.astro`-файлов не пишем.
 - Дизайн-токены — CSS custom properties в `src/styles/vars/*.scss` (объявлены в `:root`,
   одна группа токенов — один файл). В стилях используем `var(--color-*)` и т.п.
-- Разметка `components/viewer/Toolbar.astro` связана с `src/scripts/viewer.ts` контрактом
-  на `data-action`/`data-role`-атрибуты — менять только синхронно.
+- Разметка `components/viewer/Toolbar.astro` (включая `components/modal/Modal.astro`)
+  связана с `src/scripts/viewer.ts` контрактом на `data-action`/`data-role`-атрибуты —
+  менять только синхронно.
 - Клиентский JS — TypeScript-модули в `src/scripts/`, подключаются из `.astro` через
   `<script>` с импортом (Astro сам собирает их Vite'ом). Инициализация — через функцию
   `init*(container)`, данные передаются в DOM `data-*`-атрибутами, а не `define:vars`.

@@ -1,5 +1,6 @@
 ---
 import './toolbar.scss';
+import Modal from '../modal/Modal.astro';
 
 interface Props {
   url: string;
@@ -10,47 +11,39 @@ const { url, fileName } = Astro.props;
 ---
 
 <div class="viewer__toolbar">
-  <div class="viewer__info" data-role="info">
-    <button
-      class="button"
-      type="button"
-      data-action="info"
-      aria-label="Информация об издании"
-      aria-expanded="false"
-      aria-controls="viewer-info-panel"
-      title="Информация об издании"
+  <button
+    class="button"
+    type="button"
+    data-action="info"
+    aria-label="Информация об издании"
+    aria-expanded="false"
+    aria-controls="viewer-info-modal"
+    title="Информация об издании"
+  >
+    <svg
+      class="viewer__info-icon"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
     >
-      <svg
-        class="viewer__info-icon"
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        aria-hidden="true"
-      >
-        <circle
-          cx="8"
-          cy="8"
-          r="6.5"
-          stroke="currentColor"
-          stroke-width="2"
-        ></circle>
-        <path
-          d="M8 7.4v3.4"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-        ></path>
-        <circle cx="8" cy="5" r="1" fill="currentColor"></circle>
-      </svg>
-    </button>
-    <div
-      class="viewer__info-panel"
-      id="viewer-info-panel"
-      data-role="info-panel"
-      hidden
-    ></div>
-  </div>
+      <circle
+        cx="8"
+        cy="8"
+        r="6.5"
+        stroke="currentColor"
+        stroke-width="2"
+      ></circle>
+      <path
+        d="M8 7.4v3.4"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      ></path>
+      <circle cx="8" cy="5" r="1" fill="currentColor"></circle>
+    </svg>
+  </button>
   <button
     class="button"
     type="button"
@@ -293,3 +286,7 @@ const { url, fileName } = Astro.props;
     Скачать
   </a>
 </div>
+
+<Modal title="Информация об издании" id="viewer-info-modal">
+  <div data-role="info-content"></div>
+</Modal>

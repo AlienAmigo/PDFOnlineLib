@@ -29,9 +29,15 @@ export async function initViewer(container: HTMLElement): Promise<void> {
     '[data-role="page-total"]',
   );
   const scaleInfo = container.querySelector<HTMLElement>('[data-role="scale"]');
-  const infoWrap = container.querySelector<HTMLElement>('[data-role="info"]');
-  const infoPanel = container.querySelector<HTMLElement>(
-    '[data-role="info-panel"]',
+  const infoModal = container.querySelector<HTMLElement>('[data-role="modal"]');
+  const infoContent = container.querySelector<HTMLElement>(
+    '[data-role="info-content"]',
+  );
+  const modalBackdrop = container.querySelector<HTMLElement>(
+    '[data-role="modal-backdrop"]',
+  );
+  const modalClose = container.querySelector<HTMLButtonElement>(
+    '[data-action="modal-close"]',
   );
   const infoBtn = container.querySelector<HTMLButtonElement>(
     '[data-action="info"]',
@@ -77,8 +83,8 @@ export async function initViewer(container: HTMLElement): Promise<void> {
     !pageInput ||
     !pageTotal ||
     !scaleInfo ||
-    !infoWrap ||
-    !infoPanel
+    !infoModal ||
+    !infoContent
   )
     return;
 
@@ -96,8 +102,8 @@ export async function initViewer(container: HTMLElement): Promise<void> {
   const pageInputEl: HTMLInputElement = pageInput;
   const pageTotalEl: HTMLElement = pageTotal;
   const scaleInfoEl: HTMLElement = scaleInfo;
-  const infoWrapEl: HTMLElement = infoWrap;
-  const infoPanelEl: HTMLElement = infoPanel;
+  const infoModalEl: HTMLElement = infoModal;
+  const infoContentEl: HTMLElement = infoContent;
 
   const description = container.dataset.description ?? '';
   const fileName = container.dataset.filename ?? '';
@@ -260,9 +266,6 @@ export async function initViewer(container: HTMLElement): Promise<void> {
       if (typeof raw.Author === 'string' && raw.Author) {
         rows.push(['Автор', raw.Author]);
       }
-      if (typeof raw.Creator === 'string' && raw.Creator) {
-        rows.push(['Создано в', raw.Creator]);
-      }
       const created = formatPdfDate(raw.CreationDate);
       if (created) rows.push(['Дата создания', created]);
     } catch {
@@ -270,7 +273,7 @@ export async function initViewer(container: HTMLElement): Promise<void> {
     }
 
     const list = document.createElement('dl');
-    list.className = 'viewer__info-list';
+    list.className = 'modal__list';
     for (const [term, value] of rows) {
       const termEl = document.createElement('dt');
       termEl.textContent = term;
@@ -278,16 +281,17 @@ export async function initViewer(container: HTMLElement): Promise<void> {
       valueEl.textContent = value;
       list.append(termEl, valueEl);
     }
-    infoPanelEl.replaceChildren(list);
+    infoContentEl.replaceChildren(list);
   }
 
   function setInfoOpen(open: boolean): void {
-    infoPanelEl.hidden = !open;
+    infoModalEl.hidden = !open;
     infoBtn?.setAttribute('aria-expanded', String(open));
+    if (open) modalClose?.focus();
   }
 
   function toggleInfo(): void {
-    const open = infoPanelEl.hidden;
+    const open = infoModalEl.hidden;
     setInfoOpen(open);
     if (open) void buildInfoPanel();
   }
@@ -322,18 +326,15 @@ export async function initViewer(container: HTMLElement): Promise<void> {
     }
   });
 
-  document.addEventListener('click', (event) => {
-    if (infoPanelEl.hidden) return;
-    if (event.target instanceof Node && !infoWrapEl.contains(event.target)) {
-      setInfoOpen(false);
-    }
-  });
+  modalBackdrop?.addEventListener('click', () => setInfoOpen(false));
+  modalClose?.addEventListener('click', () => setInfoOpen(false));
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
       setInfoOpen(false);
       return;
     }
+    if (!infoModalEl.hidden) return;
     if (isEditableTarget(event.target)) return;
     switch (event.key) {
       case 'ArrowLeft':

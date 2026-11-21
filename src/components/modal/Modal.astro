@@ -1,0 +1,44 @@
+---
+import './modal.scss';
+
+interface Props {
+  title: string;
+  id?: string;
+}
+
+const { title, id } = Astro.props;
+---
+
+<div class="modal" id={id} data-role="modal" hidden>
+  <div class="modal__backdrop" data-role="modal-backdrop"></div>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-label={title}>
+    <div class="modal__header">
+      <h2 class="modal__title">{title}</h2>
+      <button
+        class="modal__close"
+        type="button"
+        data-action="modal-close"
+        aria-label="Закрыть"
+        title="Закрыть"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="m4 4 8 8M12 4l-8 8"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <div class="modal__body">
+      <slot />
+    </div>
+  </div>
+</div>
