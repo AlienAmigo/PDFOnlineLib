@@ -36,9 +36,23 @@ ym(${metrikaId}, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="icon"
-      type="image/svg+xml"
-      href={siteConfig.paths.asset('favicon.svg')}
+      type="image/png"
+      href={siteConfig.paths.favicon('favicon-96x96.png')}
+      sizes="96x96"
     />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={siteConfig.paths.favicon('favicon.svg')}
+    />
+    <link rel="shortcut icon" href={siteConfig.paths.favicon('favicon.ico')} />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href={siteConfig.paths.favicon('apple-touch-icon.png')}
+    />
+    <meta name="apple-mobile-web-app-title" content={siteConfig.title} />
+    <link rel="manifest" href={siteConfig.paths.favicon('site.webmanifest')} />
     <title>{pageTitle}</title>
     {metrikaInit && <script is:inline set:html={metrikaInit} />}
     {metrikaId > 0 && (

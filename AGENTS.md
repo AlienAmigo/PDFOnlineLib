@@ -38,8 +38,9 @@ tsconfig.json               extends astro/tsconfigs/strict
 eslint.config.js            ESLint flat config (typescript-eslint + eslint-plugin-astro)
 .prettierrc                 Prettier (singleQuote, prettier-plugin-astro)
 public/
-  favicon.svg               иконка сайта (тот же логотип, что в шапке)
-  pdf/                      PDF-файлы, отдаются как статика по /pdf/<имя>
+  assets/                 статические файлы бренда (логотип в шапке)
+  favicon/                набор иконок сайта (svg, ico, png, apple-touch, manifest)
+  pdf/                    PDF-файлы, отдаются как статика по /pdf/<имя>
 src/
   config.ts                 siteConfig: название, копирайт, все пути сайта
   env.d.ts                  ссылки на типы astro/client и vite/client
@@ -73,11 +74,12 @@ src/
 
 Единственный источник правды для URL — `siteConfig.paths` в `src/config.ts`:
 
-| Путь             | Куда ведёт                       |
-| ---------------- | -------------------------------- |
-| `paths.home`     | `/`                              |
-| `paths.view(id)` | `/view/<id>`                     |
-| `paths.pdf(f)`   | `/pdf/<имя файла>` (public/pdf/) |
+| Путь               | Куда ведёт                         |
+| ------------------ | ---------------------------------- |
+| `paths.home`       | `/`                                |
+| `paths.view(id)`   | `/view/<id>`                       |
+| `paths.pdf(f)`     | `/pdf/<имя файла>` (public/pdf/)   |
+| `paths.favicon(f)` | `/favicon/<имя>` (public/favicon/) |
 
 - В разметке не хардкодить URL — только через `siteConfig.paths`.
 - Сайт деплоится на GitHub Pages под подпутём `/PDFOnlineLib/`. `base` выбирается

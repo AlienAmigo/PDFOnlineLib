@@ -6,28 +6,13 @@ import './header.scss';
 <header class="header">
   <div class="header__inner container">
     <a class="header__logo" href={siteConfig.paths.home}>
-      <svg
-        class="header__logo-icon"
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linejoin="round"
-        ></path>
-        <path
-          d="M14 2v6h6"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linejoin="round"
-        ></path>
-      </svg>
-      <span class="header__logo-text">{siteConfig.title}</span>
+      <img
+        class="header__logo-img"
+        src={siteConfig.paths.asset('assets/logo_small.svg')}
+        width="239"
+        height="98"
+        alt="Content Ed Net"
+      />
     </a>
   </div>
 </header>

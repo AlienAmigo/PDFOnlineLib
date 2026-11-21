@@ -7,12 +7,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 56px;
+    min-height: 40px;
   }
 
   &__copyright {
     margin: 0;
     color: var(--color-muted);
-    font-size: 14px;
+    font-size: 12px;
   }
 }
