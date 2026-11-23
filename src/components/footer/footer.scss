@@ -18,6 +18,8 @@
     margin: 0;
     color: var(--color-muted);
     font-size: 12px;
+    padding-top: calc(var(--padding-desktop) / 2);
+    padding-bottom: calc(var(--padding-desktop) / 2);
   }
 
   @include mx.vp-1023 {
@@ -27,6 +29,10 @@
 
   @include mx.vp-767 {
     #{$root} {
+      &__inner {
+        min-height: max-content;
+      }
+
       &__copyright {
         font-size: 10px;
       }
