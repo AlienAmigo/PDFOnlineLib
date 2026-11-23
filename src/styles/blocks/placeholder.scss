@@ -1,0 +1,18 @@
+.placeholder {
+  text-align: center;
+  padding: 96px 0;
+
+  &__title {
+    font-size: 32px;
+    margin: 0 0 12px;
+  }
+
+  &__text {
+    color: var(--color-muted);
+    margin: 0 0 24px;
+  }
+
+  &__link {
+    color: var(--color-accent);
+  }
+}

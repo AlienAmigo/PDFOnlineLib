@@ -1,0 +1,92 @@
+@use '../../styles/global/mixins' as mx;
+
+.viewer {
+  $root: &;
+
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  &__container {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+
+    &:fullscreen {
+      background: var(--color-bg);
+      padding: var(--padding-desktop);
+    }
+  }
+
+  &__canvas-wrap {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    overflow: auto;
+    scrollbar-gutter: stable;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: var(--padding-desktop);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  &__canvas {
+    flex: none;
+    margin: auto;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  &__status {
+    padding: 48px 0;
+    text-align: center;
+    color: var(--color-muted);
+  }
+
+  @include mx.vp-1023 {
+    #{$root} {
+      &__container {
+        &:fullscreen {
+          padding: var(--padding-tablet);
+        }
+      }
+
+      &__canvas-wrap {
+        padding: var(--padding-tablet);
+      }
+    }
+  }
+
+  @include mx.vp-1023 {
+    #{$root} {
+      &__container {
+        &:fullscreen {
+          padding: var(--padding-tablet);
+        }
+      }
+
+      &__canvas-wrap {
+        padding: var(--padding-tablet);
+      }
+    }
+  }
+
+  @include mx.vp-767 {
+    #{$root} {
+      &__container {
+        &:fullscreen {
+          padding: var(--padding-mobile);
+        }
+      }
+
+      &__canvas-wrap {
+        padding: var(--padding-mobile);
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+@use "breakpoints" as bp;
+
+@mixin vp-1023 {
+  @media (max-width: bp.$vp-tablet) {
+    @content;
+  }
+}
+
+@mixin vp-767 {
+  @media (max-width: bp.$vp-mobile) {
+    @content;
+  }
+}
+
+// защита о текстового переполнения
+@mixin text-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// защита о текстового переполнения (многострочное)
+@mixin paragraph-text-overflow($lines-count: 3) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $lines-count;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
