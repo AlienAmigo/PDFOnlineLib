@@ -62,20 +62,6 @@
     }
   }
 
-  @include mx.vp-1023 {
-    #{$root} {
-      &__container {
-        &:fullscreen {
-          padding: var(--padding-tablet);
-        }
-      }
-
-      &__canvas-wrap {
-        padding: var(--padding-tablet);
-      }
-    }
-  }
-
   @include mx.vp-767 {
     #{$root} {
       &__container {
