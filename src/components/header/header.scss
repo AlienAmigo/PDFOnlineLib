@@ -1,4 +1,8 @@
+@use '../../styles/global/mixins' as mx;
+
 .header {
+  $root: &;
+
   flex-shrink: 0;
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
@@ -73,6 +77,19 @@
     &--sun {
       [data-theme='dark'] & {
         display: none;
+      }
+    }
+  }
+
+  @include mx.vp-767 {
+    #{$root} {
+
+      &__inner {
+        height: 48px;
+      }
+
+      &__logo-img {
+        height: 40px;
       }
     }
   }
